@@ -7,6 +7,8 @@ import pandas as pd
 import speech_recognition as sr
 import tkinter as tk
 import elevenlabs
+import datetime
+import docx
 
 from hmmlearn import hmm
 from sklearn.model_selection import train_test_split
@@ -108,6 +110,7 @@ def recognize_intent(text):
         "spotify": "spotify",
         "youtube": "youtube",
         "netflix": "netflix",
+        "note": "note",
         # Add more keywords as needed
     }
     for keyword, intent in keywords.items():
@@ -149,16 +152,26 @@ def recognize_speech_and_display():
     if recognized_text is not None:
         # Recognize intent
         intent = recognize_intent(recognized_text)
-        if intent != "unknown":
+        if intent == "note":
+            take_note(recognized_text)
+        elif intent != "unknown":
             open_application_link(intent)
-            speak_response(f"Yes Ma'am, launch {intent}")
+            speak_response(f"Yes Master, launch {intent}")
             # play_audio_by_label(intent)
         else:
             play_audio_by_label(intent)  # Play "unknown" audio
 
+def take_note(text):
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+    file_name = f"note_{current_time}.docx"
+    doc = docx.Document()
+    doc.add_paragraph(text)
+    doc.save(file_name)
+    print(f"Note saved as: {file_name}")
+    speak_response("Note saved successfully Master.")
 
 def start_listening():
-    speak_response("Welcome to my virtual asisstant, How can I help you today?")
+    speak_response("Welcome to Twinkle Virtual Asisstant, How can I help you today?")
     # play_audio_by_label("GREETINGS")
     recognize_speech_and_display()
 

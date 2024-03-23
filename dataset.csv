@@ -1,0 +1,7 @@
+file_name,label,duration_microseconds,application_link
+GREETINGS.wav,greetings,5000000,
+unknwon.wav,unknown,4000000,
+chrom.wav,chrome,3000000,https://www.google.com/chrome/
+netflix.wav,netflix,3000000,https://www.netflix.com/
+spotify.wav,spotify,3000000,https://www.spotify.com/
+youtube.wav,youtube,3000000,https://www.youtube.com/
